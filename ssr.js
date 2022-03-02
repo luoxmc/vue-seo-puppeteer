@@ -2,8 +2,9 @@ const puppeteer = require('puppeteer')
 const redisClient =  require('./redis/index.js')
 
 async function get(url) {
+    console.log(new Date() + " - 爬虫访问url:"+url)
     const REDIS_KEY = `ssr:${url}`
-    const CACHE_TIME = 1800; // 30 分钟缓存
+    const CACHE_TIME = 3600; // 60 分钟缓存
     const CACHE_HTML = await redisClient.client.getAsync(REDIS_KEY)
 
     if (CACHE_HTML) {
@@ -49,6 +50,7 @@ async function get(url) {
 
         // 4. Get updated serialized HTML of page.
         const html = await page.content() // serialized HTML of page DOM.
+        await page.close();
         await browser.close()
 
         const ttRenderMs = Date.now() - start

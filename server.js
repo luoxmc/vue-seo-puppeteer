@@ -22,6 +22,27 @@ app.get('/logo*', async (req, res) => {
     request(`${host}${req.url}`).pipe(res)
 })
 
+app.get('*.js', async (req, res) => {
+    request(`${host}${req.url}`).pipe(res)
+
+})
+
+app.get('*.css', async (req, res) => {
+    request(`${host}${req.url}`).pipe(res)
+})
+
+app.get('*.jpg', async (req, res) => {
+    request(`${host}${req.url}`).pipe(res)
+})
+
+app.get('*.png', async (req, res) => {
+    request(`${host}${req.url}`).pipe(res)
+})
+
+app.get('*.woff2', async (req, res) => {
+    request(`${host}${req.url}`).pipe(res)
+})
+
 app.get('*', async (req, res) => {
     const {html, ttRenderMs} = await ssr.get(`${host}${req.originalUrl}`);
     res.set('Server-Timing', `Prerender;dur=${ttRenderMs};desc="Headless render time (ms)"`)
